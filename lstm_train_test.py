@@ -801,6 +801,9 @@ def main():
                 )
                 end = time.time()
 
+                print("Training for", epoch+1, "/", args.end_epoch, "epochs completed. Decrement Counter =",
+                      decrement_counter)
+
                 print(
                     f"Training epoch completed in {(end - start) / 60.0} mins, Total time: {(end - global_start_time) / 60.0} mins"
                 )
