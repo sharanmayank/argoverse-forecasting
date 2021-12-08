@@ -32,7 +32,8 @@ import utils.baseline_config as config
 import utils.baseline_utils as baseline_utils
 from utils.lstm_utils import ModelUtils, LSTMDataset
 
-use_cuda = torch.cuda.is_available()
+# use_cuda = torch.cuda.is_available()
+use_cuda = False
 if use_cuda:
     device = torch.device("cuda")
 else:
@@ -238,6 +239,9 @@ def train(
     global global_step
 
     for i, (_input, target, helpers) in enumerate(train_loader):
+
+        t0 = time.time()
+
         _input = _input.to(device)
         target = target.to(device)
 
@@ -296,7 +300,9 @@ def train(
         encoder_optimizer.step()
         decoder_optimizer.step()
 
-        if global_step % 1000 == 0:
+        if global_step % 10 == 0:
+
+            print(global_step, "steps done, Step time", time.time() - t0)
 
             # Log results
             print(
